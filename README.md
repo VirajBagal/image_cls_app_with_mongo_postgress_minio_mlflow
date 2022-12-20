@@ -9,3 +9,8 @@ In this project, we create an image classification app that uses imagenet pre-tr
 4. Minio: For storing uploaded images
 5. MLflow: For Model registry
 4. Postgres: As a backend store for MLFlow server
+
+
+To make apps accessible, follow this stackoverflow: https://stackoverflow.com/questions/26818456/amazon-ec2-not-working-when-accessing-through-public-ip
+
+Need to create Security Group having all permissions.

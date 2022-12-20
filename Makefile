@@ -35,9 +35,14 @@ build_app_image:
 	docker build -t img-cls:latest project/.
 	echo "Built app image"
 
-app: log_model_in_mlflow build_app_image
+log_model_and_start_app: log_model_in_mlflow build_app_image
 	echo "Push the registered model to Production stage by going to MlFlow server. This step is supposed to be Manual"
 	sleep 60
+	echo "Starting App"
+	docker run -d -p 8000:8000 --net=image_classification_network --ip 10.11.0.11 img-cls:latest
+	echo "App started. Endpoint: 10.11.0.11:8000/predict"
+
+app: create_directories build_mlflow_image remove_containers create_network run build_app_image
 	echo "Starting App"
 	docker run -d -p 8000:8000 --net=image_classification_network --ip 10.11.0.11 img-cls:latest
 	echo "App started. Endpoint: 10.11.0.11:8000/predict"
