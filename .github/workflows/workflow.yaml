@@ -15,20 +15,28 @@ jobs:
         run: pip install -r setup/requirements.txt 
       - name: Build and run all dockers
         run: make app
-      # - name: Set up Python 3.7
-      #   uses: actions/setup-python@v2
-      #   with:
-      #     python-version: 3.
-      # # Step 3
-      # - name: Install dependencies
-      #   run: pip install -r requirements.txt
-      # # Step 4
-      # - name: Configure AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id:${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key:${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: ap-southeast-1
-      # Step 5
-      # - name: Build Application and Run unit Test
-      #   run: python app.py & pytest
+  Deploy:
+    # needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2 
+      - name: Deploy in EC2
+        env:
+            PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
+            HOSTNAME : ${{ secrets.HOSTNAME  }}
+            USER_NAME : ${{ secrets.USER_NAME  }}
+            
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+          
+            #Now we have got the access of EC2 and we will start the deploy .
+            cd /home/ubuntu/app/image_cls_app_with_mongo_postgress_minio_mlflow &&
+            git checkout main &&
+            git fetch --all &&
+            git reset --hard origin/main &&
+            git pull origin main &&
+            make app
+
+          '
