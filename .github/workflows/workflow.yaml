@@ -29,7 +29,7 @@ jobs:
             
         run: |
           mkdir ssh 
-          (echo "$PRIVATE_KEY" | base64 -d) > ssh/private_key.pem 
+          echo "$PRIVATE_KEY" > ssh/private_key.pem 
           chmod 400 ssh/private_key.pem
           ssh -o StrictHostKeyChecking=no -i ssh/private_key.pem ${USER_NAME}@${HOSTNAME} '
           
