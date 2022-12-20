@@ -29,9 +29,9 @@ jobs:
             
         run: |
           mkdir ssh 
-          echo "$PRIVATE_KEY" > ssh/private_key.pem 
-          chmod 400 ssh/private_key.pem
-          ssh -o StrictHostKeyChecking=no -i ssh/private_key.pem ${USER_NAME}@${HOSTNAME} '
+          'echo "$PRIVATE_KEY" > ssh/private_key' 
+          chmod 400 ssh/private_key
+          ssh -o StrictHostKeyChecking=no -i ssh/private_key ${USER_NAME}@${HOSTNAME} '
           
             #Now we have got the access of EC2 and we will start the deploy .
             cd /home/ubuntu/app/image_cls_app_with_mongo_postgress_minio_mlflow &&
@@ -42,3 +42,4 @@ jobs:
             make app
 
           '
+        shell: bash
