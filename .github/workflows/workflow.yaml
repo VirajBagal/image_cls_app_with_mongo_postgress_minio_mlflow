@@ -11,6 +11,8 @@ jobs:
       # Step 2
       - name: 🔎 Check IP
         run: curl https://api.ipify.org
+      - name: Install requirements for setup
+        run: pip install -r setup/requirements.txt 
       - name: Build and run all dockers
         run: make app
       # - name: Set up Python 3.7
