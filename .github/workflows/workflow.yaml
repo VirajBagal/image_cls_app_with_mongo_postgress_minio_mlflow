@@ -30,7 +30,17 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key 
           chmod 600 private_key
-          ssh -tt -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+          ssh -tt -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+
+            #Now we have got the access of EC2 and we will start the deploy .
+            cd /home/ubuntu/app/image_cls_app_with_mongo_postgress_minio_mlflow &&
+            git checkout main &&
+            git fetch --all &&
+            git reset --hard origin/main &&
+            git pull origin main &&
+            make app
+
+          '
 
 
 
