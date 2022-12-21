@@ -29,15 +29,19 @@ jobs:
             
         run: |
           echo "$PRIVATE_KEY" > private_key.pem 
-          chmod 400 private_key.pem
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_NAME}@${HOSTNAME} '
-          
-            #Now we have got the access of EC2 and we will start the deploy .
-            cd /home/ubuntu/app/image_cls_app_with_mongo_postgress_minio_mlflow &&
-            git checkout main &&
-            git fetch --all &&
-            git reset --hard origin/main &&
-            git pull origin main &&
-            make app
 
-          '
+
+
+
+# chmod 400 private_key.pem
+# ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_NAME}@${HOSTNAME} '
+
+#   #Now we have got the access of EC2 and we will start the deploy .
+#   cd /home/ubuntu/app/image_cls_app_with_mongo_postgress_minio_mlflow &&
+#   git checkout main &&
+#   git fetch --all &&
+#   git reset --hard origin/main &&
+#   git pull origin main &&
+#   make app
+
+# '
