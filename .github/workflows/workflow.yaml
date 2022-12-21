@@ -4,19 +4,7 @@ on:
     branches: [ main ]
 
 jobs:
-  # continuous-integration:
-  #   runs-on: ubuntu-latest
-  #   steps:      # Step 1
-  #     - uses: actions/checkout@v2
-  #     # Step 2
-  #     - name: 🔎 Check IP
-  #       run: curl https://api.ipify.org
-  #     - name: Install requirements for setup
-  #       run: pip install -r setup/requirements.txt 
-  #     - name: Build and run all dockers
-  #       run: make app
   Deploy:
-    # needs: build
     runs-on: ubuntu-latest
     
     steps:
@@ -41,21 +29,3 @@ jobs:
             make app
 
           '
-
-
-
-
-
-  # 
-  # 
-# ssh -o StrictHostKeyChecking=no -i private_key.pem ${USER_NAME}@${HOSTNAME} '
-
-#   #Now we have got the access of EC2 and we will start the deploy .
-#   cd /home/ubuntu/app/image_cls_app_with_mongo_postgress_minio_mlflow &&
-#   git checkout main &&
-#   git fetch --all &&
-#   git reset --hard origin/main &&
-#   git pull origin main &&
-#   make app
-
-# '
