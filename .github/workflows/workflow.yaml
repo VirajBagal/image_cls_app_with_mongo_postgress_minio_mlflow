@@ -29,7 +29,7 @@ jobs:
             
         run: |
           echo "$PRIVATE_KEY" > private_key 
-          chmod 400 private_key
+          chmod 600 private_key
           ssh -tt -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
 
 
